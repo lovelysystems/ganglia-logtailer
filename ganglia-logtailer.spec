@@ -1,6 +1,6 @@
 Name:           ganglia-logtailer
 Version:        1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework to crunch data from logfiles and send using gmetric.
 
 

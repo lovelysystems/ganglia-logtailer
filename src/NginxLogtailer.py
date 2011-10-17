@@ -31,22 +31,25 @@ class NginxLogtailer(object):
         #    '$host '
         #    '$server_addr '
         #    '$remote_addr '
-        #    '- $time_iso8601 '
+        #    '- '
+        #    '"$time_iso8601" '
         #    '$status '
         #    '$body_bytes_sent '
         #    '$upstream_response_time '
-        #    '$http_cookie '
         #    '"$http_referer" '
         #    '"$request" '
         #    '"$http_user_agent" '
         #    '$pid';
 
+        # NOTE: nginx 0.7 doesn't support $time_iso8601, use $time_local
+        # instead
+
         # original apache log format string:
-        # %v %A %a %u %{%Y-%m-%dT%H:%M:%S}t %c %s %>s %B %D %{cookie}n \"%{Referer}i\" \"%r\" \"%{User-Agent}i\" %P
-        # host.com 127.0.0.1 127.0.0.1 - 2008-05-08T07:34:44 - 200 200 371 103918 - "-" "GET /path HTTP/1.0" "-" 23794
+        # %v %A %a %u %{%Y-%m-%dT%H:%M:%S}t %c %s %>s %B %D \"%{Referer}i\" \"%r\" \"%{User-Agent}i\" %P
+        # host.com 127.0.0.1 127.0.0.1 - "2008-05-08T07:34:44" - 200 200 371 103918 - "-" "GET /path HTTP/1.0" "-" 23794
         # match keys: server_name, local_ip, remote_ip, date, status, size,
-        #               req_time, cookie, referrer, request, user_agent, pid
-        self.reg = re.compile('^(?P<server_name>[^ ]+) (?P<local_ip>[^ ]+) (?P<remote_ip>[^ ]+) (?P<user>[^ ]+) (?P<date>[^ ]+) (?P<status>[^ ]+) (?P<size>[^ ]+) (?P<req_time>[^ ]+) (?P<cookie>[^ ]+) "(?P<referrer>[^"]+)" "(?P<request>[^"]+)" "(?P<user_agent>[^"]+)" (?P<pid>[^ ]+)')
+        #               req_time, referrer, request, user_agent, pid
+        self.reg = re.compile('^(?P<server_name>[^ ]+) (?P<local_ip>[^ ]+) (?P<remote_ip>[^ ]+) (?P<user>[^ ]+) "(?P<date>[^"]+)" (?P<status>[^ ]+) (?P<size>[^ ]+) (?P<req_time>[^ ]+) "(?P<referrer>[^"]+)" "(?P<request>[^"]+)" "(?P<user_agent>[^"]+)" (?P<pid>[^ ]+)')
 
         # assume we're in daemon mode unless set_check_duration gets called
         self.dur_override = False

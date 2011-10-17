@@ -35,12 +35,14 @@ debclean:
 	debuild clean
 
 dist:
-	cd ..
-	tar czf ganglia-logtailer.tar.gz ganglia-logtailer
+	#cd ..
+	rm -f ganglia-logtailer.tar.gz
+	cd .. && tar czf ganglia-logtailer.tar.gz ganglia-logtailer
+	mv ../ganglia-logtailer.tar.gz .
 
 source-rpm: dist
-	rpmbuild -ts ganglia-logtailer.tar.gz
+	rpmbuild --sign -ts ganglia-logtailer.tar.gz
 	
 rpm: dist 
-	rpmbuild -tb ganglia-logtailer.tar.gz
+	rpmbuild --sign -tb ganglia-logtailer.tar.gz
 

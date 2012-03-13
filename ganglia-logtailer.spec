@@ -1,6 +1,6 @@
 Name:           ganglia-logtailer
 Version:        1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Framework to crunch data from logfiles and send using gmetric.
 
 
@@ -11,7 +11,7 @@ Source0:       %{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: python-devel
-Requires:     ganglia-gmond logcheck
+Requires:     python27-lovely ganglia-gmond logcheck
 
 %description
 ganglia-logtailer is a  Many metrics associated with ganglia and gmetric

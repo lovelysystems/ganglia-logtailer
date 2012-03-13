@@ -1,0 +1,1 @@
+this project was forked from https://bitbucket.org/maplebed/ganglia-logtailer to have it in git.

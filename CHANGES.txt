@@ -1,0 +1,5 @@
+- forced to use python2.7 to avoid errors in python2.6 (which is scientific linux default) logging
+File "/usr/lib64/python2.6/logging/handlers.py", line 150, in shouldRollover
+   self.stream.seek(0, 2)  #due to non-posix-compliant Windows feature
+ValueError: I/O operation on closed file
+- tuned nginx format

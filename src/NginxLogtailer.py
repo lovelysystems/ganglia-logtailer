@@ -35,7 +35,7 @@ class NginxLogtailer(object):
         #    '"$time_iso8601" '
         #    '$status '
         #    '$body_bytes_sent '
-        #    '$upstream_response_time '
+        #    '$request_time '
         #    '"$http_referer" '
         #    '"$request" '
         #    '"$http_user_agent" '

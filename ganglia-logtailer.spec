@@ -11,7 +11,7 @@ Source0:       %{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: python-devel
-Requires:     ganglia-gmond
+Requires:     python27-lovely ganglia-gmond logcheck
 
 %description
 ganglia-logtailer is a  Many metrics associated with ganglia and gmetric

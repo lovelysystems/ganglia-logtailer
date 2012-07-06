@@ -82,8 +82,6 @@ class NginxLogtailer(object):
                     self.num_five+=1
                 # capture request duration
                 dur = float(linebits['req_time'])
-                # convert to seconds
-                dur = dur / 1000
                 self.req_time += dur
                 # store for 90th % calculation
                 self.ninetieth.append(dur)

@@ -41,20 +41,7 @@ logtail = '/usr/sbin/logtail'
 logtail_statedir = '/var/lib/ganglia-logtailer/'
 script_start_time = time.time()
 
-## set up logging infrastructure for use throughout the script
-logDir = '/var/log/ganglia'
-if(not os.path.isdir(logDir)):
-    os.mkdir(logDir)
 logger = logging.getLogger('ganglia_logtailer')
-# open the log file for append, rotate at 1GB, keep 10 of them
-#hdlr = logger.RotatingFileHandler('%s/ganglia_logtailer.log' % logDir, 'a', 1000000000, 10)
-hdlr = logging.handlers.RotatingFileHandler('%s/ganglia_logtailer.log' % logDir, 'a', 10 * 1024 * 1024, 10)
-formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
-hdlr.setFormatter(formatter)
-logger.addHandler(hdlr)
-logger.setLevel(logging.ERROR)
-#logger.setLevel(logging.DEBUG)
-
 
 ## This provides a lineno() function to make it easy to grab the line
 ## number that we're on (for logging)
@@ -288,11 +275,13 @@ def main():
         os.utime(logtail_state_file, (floor(script_start_time), floor(script_start_time)))
         end_locking(lockfile, logtail_lock_file)
 
-    # try and remove the lockfile one last time, but it's a valid state that it's already been removed.
+    # try and remove the lockfile one last time, but it's a valid
+    # state that it's already been removed.
     try:
         end_locking(lockfile, logtail_lock_file)
     except Exception, e:
         pass
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.ERROR)
     main()
